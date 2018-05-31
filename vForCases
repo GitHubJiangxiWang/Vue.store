@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta name = "viewport" content = "width = device-width, initial-scale = 1.0" ></meta>
+<meta charset = "UTF-8" ></meta>
+<meta http-equiv = "X-UA-Compatible" content = "id=edge" ></meta>
+<meta name = "keywords" content = "HTML,ASP,PHP,SQL">
+<meta http-equiv = "charset" content = "GB2312" >
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src = "https://unpkg.com/vuex@3.0.1/dist/vuex.js" ></script>
+<script src = "https://unpkg.com/vue@2.5.16/dist/vue.js" ></script>
+<title>条件语句</title>
+</head>
+
+
+<body>
+<div id = "youNameId" >
+	<ol>
+		<li v-for = "n in 5" >{{ n }}</li>
+	</ol>
+	<hr>
+	<ul>
+		<li v-for = "(index, key, value) in object" >
+			<!-- Here I have I quession: value shold be fujian, index shold be  0, key shold be name,right? -->
+			{{ value }}==>{{ index }}==>{{ key }}
+		</li>
+	</ul>
+	<hr>
+	<ul>
+		<li v-for = "friend in friends" >
+			<span>{{ friend.name }}</span>==><span>{{ friend.age }}</span>==><span>{{ friend.gender }}</span>
+		</li>
+	</ul>
+</div>
+</body>
+
+<script>
+
+new Vue ({
+	el: '#youNameId',
+	data: {
+		object: {
+			name: 'fujian',
+			age: 18,
+			tel: 10086
+		},
+		friends:[
+			{ name: 'Mei', age: 16, gender: 'female'},
+			{ name: 'Lee', age: 17, gender: 'male' },
+			{ name: 'Yeah',age: 18, gender: 'male' }
+		]
+	}
+})
+
+</script>
+
+</html>
