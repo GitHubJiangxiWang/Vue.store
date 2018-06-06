@@ -1,0 +1,370 @@
+<!-- 下面是颜色选中 -->
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta name = "viewport" content = "width = device-width, initial-scale = 1.0" ></meta>
+<meta charset = "UTF-8" ></meta>
+<meta http-equiv = "X-UA-Compatible" content = "id=edge" ></meta>
+<meta name = "keywords" content = "HTML,ASP,PHP,SQL">
+<meta http-equiv = "charset" content = "GB2312" >
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src = "https://unpkg.com/vuex@3.0.1/dist/vuex.js" ></script>
+<title>v-14颜色选中</title>
+</head>
+
+<style type = "text/css">
+
+a {
+	text-decoration: none;
+	
+}
+
+ol li {
+	list-style: none;
+	margin: 0 5px;
+	padding: 0;
+	width: 100px;
+	color: cyan;
+	height: 50px;
+	float: left;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 5px;
+	background: lightgreen;
+}
+
+.myolli {
+	height: 50px;
+}
+
+ul li {
+	list-style: none;
+	float: left;
+	width: 150px;
+	height: 200px;
+	margin: 0 5px;
+}
+
+ul li div {
+	width: 150px;
+	height: 20px;
+	text-align: center;
+}
+
+
+.active {
+	background: linear-gradient(30deg,red,blue,cyan,green,navy,lightgreen);
+}
+
+.a {
+	color: blue;
+}
+
+.d {
+	font-size: 50px;
+}
+
+.b {
+	font-size: 10px;
+}
+
+</style>
+
+<body>
+<div id = "youNameId" >
+	<router-view></router-view>
+</div>	
+</body>
+
+<script>
+
+const shubiao = {
+	template:
+	`
+		<div>
+			<div>
+				<h3>Let us see it.</h3>
+				<div class = "myolli">
+					<ol>
+						<li v-for = "(colorer,index) in colorers" v-bind:class = "{ active: colorer.checked }" v-bind:key = "colorer.index" v-bind:id = "colorer.index" @click = "markColor(colorer)">{{ colorer.name }}</li>
+					</ol>
+				</div>
+				<div v-show = "showOne" >
+					Content show one.
+				</div>
+				<div v-show = "showTwo" >
+					Content show two.
+				</div>
+				<div v-show = "showThree" >
+					Content show three.
+				</div>
+			</div>
+			<hr style = "border: 2px solid blue;">
+			<div>
+				<ul>
+					<li v-for = "picture in pictures" :key = "picture.id">
+						<router-link :to = "'/reactRouter/' + picture.id">
+							<img :src = "picture.url">
+							<br>
+							<div>{{ picture.title }}</div>
+						</router-link>
+					</li>
+				</ul>
+			</div>
+			<br>
+			<div v-bind:class = "[first,isShow ? '' : third]" v-show = "itShowOrNot" >
+				<p>div content</p>
+			</div>
+		</div>	
+	`,
+	data: function (){
+		return {
+			colorers: [
+				{ name: 'colorer1' },
+				{ name: 'colorer2' },
+				{ name: 'colorer3' },
+				{ name: 'colorer4' },
+				{ name: 'colorer5' }
+			],
+			isShow: false,
+			third: 'd',
+			first: 'a',
+			isActive: 0,
+			showOne: true,
+			showTwo: false,
+			showThree: false,
+			itShowOrNot: false,
+			pictures: [
+				{ id: 1, title: 'tuOne', url: './assetes/tu1.jpg' },
+				{ id: 2, title: 'tuTwo', url: './assetes/tu2.jpg' },
+				{ id: 3, title: 'tuThree', url: './assetes/tu3.jpg' },
+				{ id: 4, title: 'tuFour', url: './assetes/tu4.jpg' },
+				{ id: 5, title: 'tuFive', url: './assetes/tu5.jpg' },
+			]
+		}
+	},
+	methods: {
+		markColor: function (colorer) {
+			if (typeof colorer.checked == 'undefined') {
+				this.$set(colorer, 'checked', true)
+			} else {
+				colorer.checked = !colorer.checked
+			}
+		}
+	}
+}
+
+const niu = {
+	template: 
+	`
+		<div>
+			<p>23456789</p>
+		</div>
+	`
+}
+
+const routes = [
+	{ path: '/', component: shubiao },
+	{ path: '/reactRouter/:id', component: niu }
+]
+
+const router = new VueRouter({
+	routes
+})
+
+const youNameId = new Vue({
+	router,
+}).$mount('#youNameId')
+
+</script>
+
+</html>
+<!-- 下面是限定选中颜色的数量  -->
+
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<meta name = "viewport" content = "width = device-width, initial-scale = 1.0" ></meta>
+<meta charset = "UTF-8" ></meta>
+<meta http-equiv = "X-UA-Compatible" content = "id=edge" ></meta>
+<meta name = "keywords" content = "HTML,ASP,PHP,SQL">
+<meta http-equiv = "charset" content = "GB2312" >
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src = "https://unpkg.com/vuex@3.0.1/dist/vuex.js" ></script>
+<title>v-13限定颜色选中</title>
+</head>
+
+<style type = "text/css">
+
+a {
+	text-decoration: none;
+	
+}
+
+ol li {
+	list-style: none;
+	margin: 0 5px;
+	padding: 0;
+	width: 100px;
+	color: cyan;
+	height: 50px;
+	float: left;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 5px;
+	background: lightgreen;
+}
+
+.myolli {
+	height: 50px;
+}
+
+ul li {
+	list-style: none;
+	float: left;
+	width: 150px;
+	height: 200px;
+	margin: 0 5px;
+}
+
+ul li div {
+	width: 150px;
+	height: 20px;
+	text-align: center;
+}
+
+
+.active {
+	background: linear-gradient(30deg,red,blue,cyan,green,navy,lightgreen);
+}
+
+.a {
+	color: blue;
+}
+
+.d {
+	font-size: 50px;
+}
+
+.b {
+	font-size: 10px;
+}
+
+</style>
+
+<body>
+<div id = "youNameId" >
+	<router-view></router-view>
+</div>	
+</body>
+
+<script>
+
+const shubiao = {
+	template:
+	`
+		<div>
+			<div>
+				<h3>Let us see it.</h3>
+				<div class = "myolli">
+					<ol>
+						<li v-for = "(colorer,index) in colorers" v-bind:class = "{ active: colorer.checked  }" v-bind:key = "colorer.index" v-bind:id = "colorer.index" @click = "markColor(colorer)" >{{ colorer.name }}</li>
+					</ol>
+				</div>
+				<div v-show = "showOne" >
+					Content show one.
+				</div>
+				<div v-show = "showTwo" >
+					Content show two.
+				</div>
+				<div v-show = "showThree" >
+					Content show three.
+				</div>
+			</div>
+			<hr style = "border: 2px solid blue;">
+			<div>
+				<ul>
+					<li v-for = "picture in pictures" :key = "picture.id">
+						<router-link :to = "'/reactRouter/' + picture.id">
+							<img :src = "picture.url">
+							<br>
+							<div>{{ picture.title }}</div>
+						</router-link>
+					</li>
+				</ul>
+			</div>
+			<br>
+			<div v-bind:class = "[first,isShow ? '' : third]" v-show = "itShowOrNot" >
+				<p>div content</p>
+			</div>
+		</div>	
+	`,
+	data: function (){
+		return {
+			colorers: [
+				{ name: 'colorer1' },
+				{ name: 'colorer2' },
+				{ name: 'colorer3' },
+				{ name: 'colorer4' },
+				{ name: 'colorer5' }
+			],
+			isShow: false,
+			third: 'd',
+			first: 'a',
+			isActive: 0,
+			showOne: true,
+			showTwo: false,
+			showThree: false,
+			itShowOrNot: false,
+			pictures: [
+				{ id: 1, title: 'tuOne', url: './assetes/tu1.jpg' },
+				{ id: 2, title: 'tuTwo', url: './assetes/tu2.jpg' },
+				{ id: 3, title: 'tuThree', url: './assetes/tu3.jpg' },
+				{ id: 4, title: 'tuFour', url: './assetes/tu4.jpg' },
+				{ id: 5, title: 'tuFive', url: './assetes/tu5.jpg' },
+			]
+		}
+	},
+	methods: {
+		markColor (colorer) {
+			var markColor3 = document.getElementsByClassName('active');
+			if ( typeof colorer.checked == 'undefined' ) {
+				if (markColor3.length <= 2) {
+					this.$set( colorer, 'checked', true );
+				} else {
+					alert('You chose too much!Come on,budy~');
+				}
+			} else {
+				colorer.checked = !colorer.checked
+			}
+		}
+	}
+}
+
+const niu = {
+	template: 
+	`
+		<div>
+			<p>23456789</p>
+		</div>
+	`
+}
+
+const routes = [
+	{ path: '/', component: shubiao },
+	{ path: '/reactRouter/:id', component: niu }
+]
+
+const router = new VueRouter({
+	routes
+})
+
+const youNameId = new Vue({
+	router,
+}).$mount('#youNameId')
+
+</script>
+
+</html>
